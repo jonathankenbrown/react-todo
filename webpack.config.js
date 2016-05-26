@@ -22,6 +22,10 @@ module.exports = {
   },
   resolve: {
     root: __dirname,
+    modulesDirectories: [
+      'node_modules',
+      './app/components' // automatically adds components to be loaded (so no alias)
+    ],
     alias: {
       applicationStyles: 'app/styles/app.scss'
     },
