@@ -24,7 +24,8 @@ module.exports = {
     root: __dirname,
     modulesDirectories: [
       'node_modules',
-      './app/components' // automatically adds components to be loaded (so no alias)
+      './app/components', // automatically adds components to be loaded (so no alias)
+      './app/api'
     ],
     alias: {
       applicationStyles: 'app/styles/app.scss'
