@@ -29,15 +29,12 @@ export var todosReducer = (state = [], action) => {
         action.todo
       ];
       // add case for TOGGLE_TODO completed equal to opposite value & updateCompletedAt
-    case 'TOGGLE_TODO':
+    case 'UPDATE_TODO':
       return state.map((todo) => { // state iteratively runs ALL todos individually as todo, to find the id.
         if (todo.id === action.id) {
-          var nextCompleted = !todo.completed;
-
           return {
             ...todo,
-            completed: nextCompleted,
-            completedAt: nextCompleted ? moment().unix() : undefined
+            ...action.updates
           };
         } else {
           return todo;
