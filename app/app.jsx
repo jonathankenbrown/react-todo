@@ -11,6 +11,7 @@ import router from 'app/router/';// since file is "index.jsx", no need to specif
 firebase.auth().onAuthStateChanged((user) => { // this to check if soemone is logged in or not and change "private" pages accordingly. if user exist or not.
     if (user) {
       store.dispatch(actions.login(user.uid));
+      store.dispatch(actions.startAddTodos());
       hashHistory.push('/todos');
     } else {
       store.dispatch(actions.logout());
@@ -28,7 +29,7 @@ firebase.auth().onAuthStateChanged((user) => { // this to check if soemone is lo
 // var initialTodos = TodoAPI.getTodos();
 // store.dispatch(actions.addTodos(initialTodos));
 
-store.dispatch(actions.startAddTodos());
+
 
 // Load foundation
 $(document).foundation();
