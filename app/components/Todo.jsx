@@ -5,7 +5,7 @@ var actions = require('actions');
 
 export var Todo = React.createClass({
   render: function () {
-    var {id, text, completed, createdAt, completedAt, dispatch} = this.props;  // comes from TodoList.jsx
+    var {id, text, completed, createdAt, completedAt, dispatch} = this.props;
     var todoClassName = completed ? 'todo todo-completed' : 'todo';
     var renderDate = () => {
       var message = 'Created ';
@@ -21,7 +21,6 @@ export var Todo = React.createClass({
 
     return (
       <div className={todoClassName} onClick={() => {
-          // this.props.onToggle(id);  //due to CONNECT
           dispatch(actions.startToggleTodo(id, !completed));
         }}>
         <div>

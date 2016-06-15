@@ -1,12 +1,12 @@
 import React from 'react';
 import * as Redux from 'react-redux';
 
-import TodoList from 'TodoList';
+import TodoList from 'TodoList'
 import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
 import * as actions from 'actions';
 
-export var TodoApp = React.createClass({ // connected version
+export var TodoApp = React.createClass({
   onLogout(e) {
     var {dispatch} = this.props;
     e.preventDefault();
@@ -17,7 +17,7 @@ export var TodoApp = React.createClass({ // connected version
     return (
       <div>
         <div className="page-actions">
-          <a href="#">Logout</a>
+          <a href="#" onClick={this.onLogout}>Logout</a>
         </div>
 
         <h1 className="page-title">Todo App</h1>
@@ -32,8 +32,8 @@ export var TodoApp = React.createClass({ // connected version
           </div>
         </div>
       </div>
-    );
+    )
   }
 });
 
-export default Redux.connect()(TodoApp); // un-connected version
+export default Redux.connect()(TodoApp);

@@ -1,5 +1,6 @@
-import firebase, {firebaseRef, githubProvider} from 'app/firebase/';
 import moment from 'moment';
+
+import firebase, {firebaseRef, githubProvider} from 'app/firebase/';
 
 export var setSearchText = (searchText) => {
   return {
@@ -8,7 +9,6 @@ export var setSearchText = (searchText) => {
   };
 };
 
-// toggleShowCompleted TOGGLE_SHOW_COMPLETED
 export var toggleShowCompleted = () => {
   return {
     type: 'TOGGLE_SHOW_COMPLETED'
@@ -22,34 +22,7 @@ export var addTodo = (todo) => {
   };
 };
 
-export var addTodos = (todos) => {
-  return {
-    type: 'ADD_TODOS',
-    todos
-  };
-};
-
-export var startAddTodos = () => {
-  return (dispatch, getState) => {
-    var todosRef = firebaseRef.child('todos');
-
-    return todosRef.once('value').then((snapshot) => {
-      var todos = snapshot.val() || {}; //fetch from firebase; if no data, then emptpy
-      var parsedTodos = [];
-
-      Object.keys(todos).forEach((todoId) => {
-        parsedTodos.push({
-          id: todoId,
-          ...todos[todoId]
-        });
-      });
-
-      dispatch(addTodos(parsedTodos));
-    });
-  };
-};
-
-export var startAddTodo = (text) => {  // this is to store in firebase
+export var startAddTodo = (text) => {
   return (dispatch, getState) => {
     var todo = {
       text,
@@ -68,7 +41,33 @@ export var startAddTodo = (text) => {  // this is to store in firebase
   };
 };
 
-// toggleTodo(id) TOGGLE_TODO
+export var addTodos = (todos) => {
+  return {
+    type: 'ADD_TODOS',
+    todos
+  };
+};
+
+export var startAddTodos = () => { //fetch from firebase; if no data, then emptpy
+  return (dispatch, getState) => {
+    var todosRef = firebaseRef.child('todos');
+
+    return todosRef.once('value').then((snapshot) => {
+      var todos = snapshot.val() || {};
+      var parsedTodos = [];
+
+      Object.keys(todos).forEach((todoId) => {
+        parsedTodos.push({
+          id: todoId,
+          ...todos[todoId]
+        });
+      });
+
+      dispatch(addTodos(parsedTodos));
+    });
+  };
+};
+
 export var updateTodo = (id, updates) => {
   return {
     type: 'UPDATE_TODO',
@@ -94,7 +93,7 @@ export var startToggleTodo = (id, completed) => {
 export var startLogin = () => {
   return (dispatch, getState) => {
     return firebase.auth().signInWithPopup(githubProvider).then((result) => {
-      console.log('Auth worked', result);
+      console.log('Auth worked!', result);
     }, (error) => {
       console.log('Unable to auth', error);
     });

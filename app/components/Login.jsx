@@ -9,8 +9,7 @@ export var Login = React.createClass({
 
     dispatch(actions.startLogin());
   },
-
-  render () {
+  render() {
     return (
       <div>
         <h1 className="page-title">Todo App</h1>
@@ -26,9 +25,8 @@ export var Login = React.createClass({
             </div>
           </div>
         </div>
-
       </div>
-    )
+    );
   }
 });
 
