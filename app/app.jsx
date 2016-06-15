@@ -10,8 +10,10 @@ import router from 'app/router/';// since file is "index.jsx", no need to specif
 
 firebase.auth().onAuthStateChanged((user) => { // this to check if soemone is logged in or not and change "private" pages accordingly. if user exist or not.
     if (user) {
+      store.dispatch(actions.login(user.uid));
       hashHistory.push('/todos');
     } else {
+      store.dispatch(actions.logout());
       hashHistory.push('/');
     }
   });
