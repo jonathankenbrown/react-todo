@@ -9,11 +9,28 @@ var TodoModal = require('TodoModal');
 
 export var Todo = React.createClass({
   // foundation modal initialisation
+getDefaultProps: function () {
+  return {
+    dummy2: 'monkey'
+  };
+
+},
   componentDidMount: function() {
-         $(document).foundation();
+    console.log(this.props)
+         var elem = new Foundation.Reveal($('#exampleModal1'));
        },
+componentWillReceiveProps: function(nextProps) {
+console.log('asdfasdfasdfasdf')
+},
+
+shouldComponentUpdate: function(nextProps, nextState) {
+  console.log(nextProps)
+  return true;
+},
+
 
   render: function () {
+
 
     var {id, text, completed, createdAt, completedAt, dispatch} = this.props;
     var todoClassName = completed ? 'todo todo-completed' : 'todo';
@@ -43,17 +60,22 @@ export var Todo = React.createClass({
           </div>
         </div>
         <div>
-          <a data-reveal-id="myModal">
-            TestModalLink
-          </a>
-        </div>
-        <div>
-        <div id="myModal" className="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-            <h2 id="modalTitle">Awesome. I have it.</h2>
-            <p className="lead">Your couch.  It is mine.</p>
-            <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
-            <a className="close-reveal-modal" aria-label="Close">&#215;</a>
-        </div></div>
+        <a data-open="error-modal">
+            {id}
+            <TodoModal dummy={id}/>
+        </a>
+          <a data-open="exampleModal1">
+              {id}WHHHHHAAA
+            </a>
+      </div>
+        <div className="reveal" id="exampleModal1" data-reveal="">
+    <h1>Awesome. I Have It.</h1>
+    <p className="lead">Your couch. It is mine.</p>
+    <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins! {id} {this.props.id}</p>
+    <button className="close-button" data-close="" aria-label="Close modal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
       </div>
     )
   }
