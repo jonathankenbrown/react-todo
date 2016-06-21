@@ -14,12 +14,12 @@ var TodoModal = React.createClass({
   // },
   componentDidMount: function () {
     // var {title, message} = this.props;
-    var {dummy} = this.props;
+    // console.log()
+    var {text, dummy, locString} = this.props;
     var modalMarkup = (
-      <div id="error-modal" className="reveal tiny text-center" data-reveal="">
-        <h4>title</h4>
-        <p>test</p>
-        <p>{dummy}</p>
+      <div id={locString} className="reveal tiny text-center" data-reveal="">
+        <h4>{dummy}</h4>
+        <p>{text}</p>
         <p>
           <button className="button hollow" data-close="">
             Okay
@@ -31,7 +31,7 @@ var TodoModal = React.createClass({
     var $modal = $(ReactDOMServer.renderToString(modalMarkup));
     $(ReactDOM.findDOMNode(this)).html($modal);
 
-    var modal = new Foundation.Reveal($('#error-modal'));
+    var modal = new Foundation.Reveal($(`#${locString}`));
     // modal.open();
   },
   render: function () {  // had to move them out to reactDOM related function (inside componentDidMount) as state was being changed and React didn't like it

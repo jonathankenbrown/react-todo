@@ -8,32 +8,14 @@ var ReactDOMServer = require('react-dom/server');
 var TodoModal = require('TodoModal');
 
 export var Todo = React.createClass({
-  // foundation modal initialisation
-getDefaultProps: function () {
-  return {
-    dummy2: 'monkey'
-  };
-
-},
-  componentDidMount: function() {
-    console.log(this.props)
-         var elem = new Foundation.Reveal($('#exampleModal1'));
-       },
-componentWillReceiveProps: function(nextProps) {
-console.log('asdfasdfasdfasdf')
-},
-
-shouldComponentUpdate: function(nextProps, nextState) {
-  console.log(nextProps)
-  return true;
-},
-
 
   render: function () {
 
-
     var {id, text, completed, createdAt, completedAt, dispatch} = this.props;
     var todoClassName = completed ? 'todo todo-completed' : 'todo';
+    var locString = "item-modal" + id;
+    // console.log(locString);
+
     var renderDate = () => {
       var message = 'Created ';
       var timestamp = createdAt;
@@ -60,22 +42,12 @@ shouldComponentUpdate: function(nextProps, nextState) {
           </div>
         </div>
         <div>
-        <a data-open="error-modal">
+        <a data-open={locString}>
             {id}
-            <TodoModal dummy={id}/>
+            <TodoModal dummy={id} locString={locString} text={text}/>
         </a>
-          <a data-open="exampleModal1">
-              {id}WHHHHHAAA
-            </a>
+
       </div>
-        <div className="reveal" id="exampleModal1" data-reveal="">
-    <h1>Awesome. I Have It.</h1>
-    <p className="lead">Your couch. It is mine.</p>
-    <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins! {id} {this.props.id}</p>
-    <button className="close-button" data-close="" aria-label="Close modal" type="button">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
       </div>
     )
   }
