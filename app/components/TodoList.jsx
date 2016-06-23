@@ -8,71 +8,67 @@ import TodoModal from 'TodoModal';
 export var TodoList = React.createClass({
   getInitialState: function () {
     return {
-      modalTodo: {}
+      modalData: {
+        modalTodo: {},
+        picked: false
+      },
     }
   },
 
-createModal: function (test) {
-  // getDefaultProps: function () {
-  //
-  // }
-  // console.log(test)
-  // return (
-  //   {
-  //     test: test
-  //   }
-  // )
-  // console.log(this.props.todos)
-  console.log(this.state)
-  this.setState({
-    modalTodo: test
-  });
-  console.log(this.state.modalTodo)
-  var testVar = 'testval'
-  return (
-    <TodoModal todo={test}/>
-  )
-
-},
+  createModal: function (modalTodo) {
+    return(
+      this.setState({
+        modalData: {
+          modalTodo: modalTodo,
+          picked: true
+        }
+      })
+    )
+  },
 
   render: function () {
 
-    // var renderModal = (todo) => {
-    //   return(
-    //   <TodoModal todo={todo}/>
-    //   )
-    // };
     var {todos, showCompleted, searchText} = this.props;
     var renderTodos = () => {
-      var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+      var renderFilteredTodo = () => {
+        var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
 
-      if (filteredTodos.length === 0) {
-        return (
-          <p className="container__message">Nothing To Do</p>
-        );
-      }
+        if (filteredTodos.length === 0) {
+          return (
+            <p className="container__message">Nothing To Do</p>
+          );
+        }
 
-      return filteredTodos.map((todo) => {
-          //iteratively goes through each todo to find id
-        return (
-          <div>
-            <Todo key={todo.id} {...todo}/>
-            <div data-open="item-modal" onClick={() => this.createModal(todo)}>
-              <a>
-                {todo.id}
-              </a>
+        return filteredTodos.map((todo) => {
+            //iteratively goes through each todo to find id
+          return (
+            <div>
+              <Todo key={todo.id} {...todo}/>
+              <div onClick={() => this.createModal(todo)}>
+                <a>
+                  {todo.id}
+                </a>
 
-                <TodoModal todo={this.state.modalTodo}/>
+              </div>
             </div>
+          );
+        });
+      };
+      console.log(this.state)
+      return (
+
+        <div>
+          {renderFilteredTodo()}
+          <div data-open="item-modal">
+          <TodoModal todo={this.state.modalData.modalTodo} picked={this.state.modalData.picked}/>
           </div>
-        );
-      });
+        </div>
+      )
     };
 
     return (
       <div>
         {renderTodos()}
-
       </div>
     );
   }

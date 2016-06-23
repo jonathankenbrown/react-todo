@@ -6,21 +6,25 @@ var TodoModal = React.createClass({
 
   // getDefaultProps: function () {
   //   return {
-  //     title: 'Error'
+  //     text: '',
+  //     id: ''
   //   };
   // },
   // propTypes: {
-  //   title: React.PropTypes.string,
-  //   message: React.PropTypes.string.isRequired
+  //   text: React.PropTypes.string,
+  //   id: React.PropTypes.string.isRequired
   // },
+
+
   componentDidMount: function () {
-    // var {title, message} = this.props;
+    var {text, id} = this.props;
     // console.log()
-    console.log(this.props.todo.text)
+    console.log("start")
+    console.log(text)
     var modalMarkup = (
-      <div id="item-modal" className="reveal tiny text-center" data-reveal="">
-        <h4>{this.props.todo.text}</h4>
-        <p>{this.props.todo.id}</p>
+      <div id="item-modal" className="reveal tiny text-center" data-reveal="" >
+        <h4>{text}</h4>
+        <p>{id}</p>
         <p>
           <button className="button hollow" data-close="">
             Okay
@@ -33,16 +37,29 @@ var TodoModal = React.createClass({
     $(ReactDOM.findDOMNode(this)).html($modal);
 
     // var modal = new Foundation.Reveal($(`#${locString}`));
-    var modal = new Foundation.Reveal($("#item-modal"));
+    var modal = new Foundation.Reveal($("#item-modal")
+      // closeOnEsc: false,
+      // resetOnClose: true
+    );
     // modal.open();
   },
 
   componentWillReceiveProps: function (newProps, newState) {
-    console.log(newProps.todo.id)
+    console.log("mid")
+    console.log(newProps)
+
+    var picked = newProps.picked;
+
+    if (picked) {
+      // console.log('TRUE!')
+    };
+
+      var text = newProps.todo.text;
+      var id = newProps.todo.id;
     var modalMarkup = (
-      <div id="item-modal" className="reveal tiny text-center" data-reveal="">
-        <h4>{newProps.todo.text}</h4>
-        <p>{newProps.todo.id}</p>
+      <div id="item-modal" className="reveal tiny text-center" data-reveal="" >
+        <h4>{text}</h4>
+        <p>{id}</p>
         <p>
           <button className="button hollow" data-close="">
             Okay
@@ -55,12 +72,16 @@ var TodoModal = React.createClass({
     $(ReactDOM.findDOMNode(this)).html($modal);
 
     // var modal = new Foundation.Reveal($(`#${locString}`));
-    var modal = new Foundation.Reveal($("#item-modal"));
-    // modal.open();
+    var modal = new Foundation.Reveal($("#item-modal")
+          // closeOnEsc: false,
+      // resetOnClose: true
+    );
+    modal.open();
+    // }
   },
 
-  render: function () {  // had to move them out to reactDOM related function (inside componentDidMount) as state was being changed and React didn't like it
-console.log("helloworld")
+  render: function () {
+console.log("end")
 
     return (
       <div>
