@@ -14,7 +14,7 @@ export var Todo = React.createClass({
     var {id, text, completed, createdAt, completedAt, dispatch} = this.props;
     var todoClassName = completed ? 'todo todo-completed' : 'todo';
     var locString = "item-modal" + id;
-    // console.log(locString);
+    console.log(this.props);
 
     var renderDate = () => {
       var message = 'Created ';
@@ -42,10 +42,7 @@ export var Todo = React.createClass({
           </div>
         </div>
         <div>
-        <a data-open={locString}>
-            {id}
-            <TodoModal dummy={id} locString={locString} text={text}/>
-        </a>
+
 
       </div>
       </div>

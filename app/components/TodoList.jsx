@@ -6,10 +6,32 @@ var TodoAPI = require('TodoAPI');
 import TodoModal from 'TodoModal';
 
 export var TodoList = React.createClass({
+
+createModal: function (test) {
+  // getDefaultProps: function () {
+  //
+  // }
+  // console.log(test)
+  // return (
+  //   {
+  //     test: test
+  //   }
+  // )
+  console.log(typeof(test))
+  return(
+    <div data-reveal="item-modal">
+      <TodoModal todo={test}/>
+    </div>
+    )
+
+},
+
   render: function () {
+
     var {todos, showCompleted, searchText} = this.props;
     var renderTodos = () => {
       var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+
 
       if (filteredTodos.length === 0) {
         return (
@@ -17,9 +39,18 @@ export var TodoList = React.createClass({
         );
       }
 
-      return filteredTodos.map((todo) => {  //iteratively goes through each todo to find id
+      return filteredTodos.map((todo) => {
+          //iteratively goes through each todo to find id
         return (
-          <Todo key={todo.id} {...todo}/>
+          <div>
+            <Todo key={todo.id} {...todo}/>
+            <div  onClick={() => this.createModal(todo)}>
+              <a>
+                {todo.id}
+              </a>
+              <TodoModal todo={todo}/>
+            </div>
+          </div>
         );
       });
     };
@@ -27,8 +58,9 @@ export var TodoList = React.createClass({
     return (
       <div>
         {renderTodos()}
+
       </div>
-    )
+    );
   }
 });
 
