@@ -37,12 +37,12 @@ var TodoModal = React.createClass({
     // modal.open();
   },
 
-  componentWillReceiveProps: function (newProps) {
-    console.log(newProps.todo.text)
+  componentWillReceiveProps: function (newProps, newState) {
+    console.log(newProps.todo.id)
     var modalMarkup = (
       <div id="item-modal" className="reveal tiny text-center" data-reveal="">
-        <h4>{this.props.todo.text}</h4>
-        <p>{this.props.todo.id}</p>
+        <h4>{newProps.todo.text}</h4>
+        <p>{newProps.todo.id}</p>
         <p>
           <button className="button hollow" data-close="">
             Okay
@@ -56,7 +56,7 @@ var TodoModal = React.createClass({
 
     // var modal = new Foundation.Reveal($(`#${locString}`));
     var modal = new Foundation.Reveal($("#item-modal"));
-    modal.open();
+    // modal.open();
   },
 
   render: function () {  // had to move them out to reactDOM related function (inside componentDidMount) as state was being changed and React didn't like it

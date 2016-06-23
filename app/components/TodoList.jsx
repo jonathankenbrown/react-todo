@@ -6,6 +6,11 @@ var TodoAPI = require('TodoAPI');
 import TodoModal from 'TodoModal';
 
 export var TodoList = React.createClass({
+  getInitialState: function () {
+    return {
+      modalTodo: {}
+    }
+  },
 
 createModal: function (test) {
   // getDefaultProps: function () {
@@ -17,21 +22,29 @@ createModal: function (test) {
   //     test: test
   //   }
   // )
-  console.log(typeof(test))
-  return(
-    <div data-reveal="item-modal">
-      <TodoModal todo={test}/>
-    </div>
-    )
+  // console.log(this.props.todos)
+  console.log(this.state)
+  this.setState({
+    modalTodo: test
+  });
+  console.log(this.state.modalTodo)
+  var testVar = 'testval'
+  return (
+    <TodoModal todo={test}/>
+  )
 
 },
 
   render: function () {
 
+    // var renderModal = (todo) => {
+    //   return(
+    //   <TodoModal todo={todo}/>
+    //   )
+    // };
     var {todos, showCompleted, searchText} = this.props;
     var renderTodos = () => {
       var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
-
 
       if (filteredTodos.length === 0) {
         return (
@@ -44,11 +57,12 @@ createModal: function (test) {
         return (
           <div>
             <Todo key={todo.id} {...todo}/>
-            <div  onClick={() => this.createModal(todo)}>
+            <div data-open="item-modal" onClick={() => this.createModal(todo)}>
               <a>
                 {todo.id}
               </a>
-              <TodoModal todo={todo}/>
+
+                <TodoModal todo={this.state.modalTodo}/>
             </div>
           </div>
         );
