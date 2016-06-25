@@ -6,28 +6,34 @@ var TodoAPI = require('TodoAPI');
 import TodoModal from 'TodoModal';
 
 export var TodoList = React.createClass({
+
   getInitialState: function () {
     return {
       modalData: {
         modalTodo: {},
         picked: false
-      },
+      }
     }
   },
 
   createModal: function (modalTodo) {
-    return(
-      this.setState({
+    this.setState({
         modalData: {
           modalTodo: modalTodo,
           picked: true
         }
       })
-    )
+  },
+
+  clearModal: function () {
+    this.setState({
+        modalData: {
+          picked: false
+        }
+      })
   },
 
   render: function () {
-
     var {todos, showCompleted, searchText} = this.props;
     var renderTodos = () => {
       var renderFilteredTodo = () => {
@@ -45,7 +51,7 @@ export var TodoList = React.createClass({
             <div>
               <Todo key={todo.id} {...todo}/>
               <div onClick={() => this.createModal(todo)}>
-                <a>
+                <a >
                   {todo.id}
                 </a>
 
@@ -54,13 +60,12 @@ export var TodoList = React.createClass({
           );
         });
       };
-      console.log(this.state)
-      return (
 
+      return (
         <div>
           {renderFilteredTodo()}
           <div data-open="item-modal">
-          <TodoModal todo={this.state.modalData.modalTodo} picked={this.state.modalData.picked}/>
+            <TodoModal todo={this.state.modalData.modalTodo} picked={this.state.modalData.picked} resetModal={this.clearModal}/>
           </div>
         </div>
       )
