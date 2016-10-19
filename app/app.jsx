@@ -35,7 +35,7 @@ firebase.auth().onAuthStateChanged((user) => { // this to check if soemone is lo
 $(document).foundation();
 
 // App css
-require('style!css!sass!applicationStyles');  // adding SASS loader
+// require('style!css!sass!applicationStyles');  // adding SASS loader
 
 ReactDOM.render(
   <Provider store={store}>

@@ -30,7 +30,7 @@ var TodoModal = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps, newState) {
-
+console.log("testprint")
     var resetModal2 = () => {
       // e.preventDefault();
       this.props.resetModal();

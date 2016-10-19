@@ -3,6 +3,9 @@ import * as Redux from 'react-redux';
 
 import * as actions from 'actions';
 
+import { TimePicker } from 'react-toolbox/lib/time_picker';
+import { Button } from 'react-toolbox/lib/button';
+
 export var Login = React.createClass({
   onLogin() {
     var {dispatch} = this.props;
@@ -23,6 +26,8 @@ export var Login = React.createClass({
               </p>
               <button className="button" onClick={this.onLogin}>Login With GitHub</button>
             </div>
+            <Button primary raised label="test"/>
+            <TimePicker label='Finishing time'/>
           </div>
         </div>
       </div>

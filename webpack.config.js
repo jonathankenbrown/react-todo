@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 var path = require('path');
 var envFile = require('node-env-file');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var autoprefixer = require('autoprefixer');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'; // NODE_ENV will be "production" when uploaded to heroku
 
@@ -38,7 +40,8 @@ module.exports = {
         STORAGE_BUCKET: JSON.stringify(process.env.STORAGE_BUCKET),
         GITHUB_ACCESS_TOKEN: JSON.stringify(process.env.GITHUB_ACCESS_TOKEN)
       }
-    })
+    }),
+    new ExtractTextPlugin('./public/bundle.css', { allChunks: true })
   ],
   output: {
     path: __dirname,
@@ -58,7 +61,7 @@ module.exports = {
       reducers: 'app/reducers/reducers.jsx',
       configureStore: 'app/store/configureStore.jsx'
     },
-    extensions: ['','.js','.jsx'] //extensions that may be used for app
+    extensions: ['','.js','.jsx', '.css', '.scss'] //extensions that may be used for app
   },
   module: {
     loaders: [ // since .jsx is not native, we must specify how to read it by "loaders"
@@ -69,9 +72,14 @@ module.exports = {
         },
         test: /\.jsx?$/,  //for every .jsx file
         exclude: /(node_modules|bower_components)/
+      },
+      {
+       test: /(\.scss|\.css)$/,
+       loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass')
       }
     ]
   },
+  postcss: [autoprefixer],
   sassLoader: {
     includePaths: [
       path.resolve(__dirname, './node_modules/foundation-sites/scss')
